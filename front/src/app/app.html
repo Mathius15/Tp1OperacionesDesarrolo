@@ -1,0 +1,18 @@
+<header class="header">
+  <h1>Flora y Fauna de Tandil</h1>
+  <p class="subtitulo">Catálogo de especies y sus hábitats naturales</p>
+</header>
+
+<main>
+  <app-habitats
+    [habitats]="habitats()"
+    (recargar)="cargarHabitats()"
+  />
+
+  <app-especies
+    [habitats]="habitats()"
+    (recargar)="cargarHabitats()"
+  />
+</main>
+
+<app-toast />

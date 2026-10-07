@@ -1,0 +1,101 @@
+.form,
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  align-items: flex-end;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex: 1 1 200px;
+}
+
+.form label.check,
+.filtros label.check {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.filtros select {
+  flex: 0 1 180px;
+}
+
+.acciones {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lista {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.item {
+  border: 1px solid #e0e8e3;
+  border-left: 4px solid #1b5e3a;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.item h3 {
+  font-size: 1rem;
+}
+
+.item .cientifico {
+  font-style: italic;
+  color: #5c6b63;
+  font-size: 0.85rem;
+}
+
+.item .meta {
+  font-size: 0.8rem;
+  color: #5c6b63;
+}
+
+.item .botones {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.item .botones button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-left: 0.4rem;
+}
+
+.badge.flora {
+  background: #d8f0dc;
+  color: #1b5e3a;
+}
+
+.badge.fauna {
+  background: #fde8d0;
+  color: #8a4b12;
+}
+
+.badge.endemica {
+  background: #e3dff5;
+  color: #4a3b8a;
+}

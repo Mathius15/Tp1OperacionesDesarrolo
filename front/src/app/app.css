@@ -1,0 +1,82 @@
+.header {
+  background: #1b5e3a;
+  color: #fff;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+}
+
+.subtitulo {
+  opacity: 0.85;
+  font-size: 0.95rem;
+}
+
+main {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  color: #1b5e3a;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e0e8e3;
+  padding-bottom: 0.5rem;
+}
+
+input,
+select {
+  padding: 0.5rem;
+  border: 1px solid #cbd5cf;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  width: 100%;
+}
+
+input:focus,
+select:focus {
+  outline: 2px solid #1b5e3a;
+  border-color: #1b5e3a;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background: #1b5e3a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+button:hover {
+  background: #154a2e;
+}
+
+button.secundario {
+  background: #e0e8e3;
+  color: #1f2a24;
+}
+
+button.secundario:hover {
+  background: #cbd5cf;
+}
+
+.vacio {
+  color: #7a8780;
+  font-style: italic;
+  padding: 0.5rem 0;
+}

@@ -1,0 +1,129 @@
+<section class="card">
+  <h2>Especies</h2>
+
+  <form class="filtros" (ngSubmit)="cargar()">
+    <input
+      type="text"
+      name="fNombre"
+      [(ngModel)]="fNombre"
+      placeholder="Buscar por nombre..."
+    />
+
+    <select name="fTipo" [(ngModel)]="fTipo">
+      <option value="">Flora y fauna</option>
+      <option value="flora">Flora</option>
+      <option value="fauna">Fauna</option>
+    </select>
+
+    <select name="fHabitat" [(ngModel)]="fHabitat">
+      <option value="">Todos los hábitats</option>
+      @for (habitat of habitats(); track habitat.id) {
+        <option [value]="habitat.id">{{ habitat.nombre }}</option>
+      }
+    </select>
+
+    <label class="check">
+      <input type="checkbox" name="fEndemica" [(ngModel)]="fEndemica" />
+      Endémicas
+    </label>
+
+    <button type="submit">Filtrar</button>
+    <button type="button" class="secundario" (click)="limpiarFiltros()">
+      Limpiar
+    </button>
+  </form>
+
+  <form class="form" (ngSubmit)="guardar()">
+    <label>
+      Nombre
+      <input
+        type="text"
+        name="nombre"
+        [(ngModel)]="nombre"
+        required
+        minlength="3"
+        placeholder="Ej: Yetiayapa"
+      />
+    </label>
+
+    <label>
+      Nombre científico
+      <input
+        type="text"
+        name="nombreCientifico"
+        [(ngModel)]="nombreCientifico"
+        placeholder="Ej: Nyctibius auritus"
+      />
+    </label>
+
+    <label>
+      Tipo
+      <select name="tipo" [(ngModel)]="tipo" required>
+        <option value="flora">Flora</option>
+        <option value="fauna">Fauna</option>
+      </select>
+    </label>
+
+    <label>
+      Hábitat
+      <select name="habitatId" [(ngModel)]="habitatId" required>
+        <option value="">Elegir...</option>
+        @for (habitat of habitats(); track habitat.id) {
+          <option [value]="habitat.id">{{ habitat.nombre }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      Descripción
+      <input type="text" name="descripcion" [(ngModel)]="descripcion" />
+    </label>
+
+    <label class="check">
+      <input type="checkbox" name="endemica" [(ngModel)]="endemica" />
+      Es endémica
+    </label>
+
+    <div class="acciones">
+      <button type="submit">
+        {{ editandoId() === null ? 'Guardar' : 'Actualizar' }}
+      </button>
+      @if (editandoId() !== null) {
+        <button type="button" class="secundario" (click)="limpiarFormulario()">
+          Cancelar
+        </button>
+      }
+    </div>
+  </form>
+
+  <div class="lista">
+    @for (especie of especies(); track especie.id) {
+      <div class="item">
+        <div>
+          <h3>
+            {{ especie.nombre }}
+            <span class="badge" [class.flora]="especie.tipo === 'flora'"
+              [class.fauna]="especie.tipo === 'fauna'">{{ especie.tipo }}</span
+            >
+            @if (especie.endemica) {
+              <span class="badge endemica">endémica</span>
+            }
+          </h3>
+          <p class="cientifico">{{ especie.nombreCientifico }}</p>
+          <p class="meta">{{ especie.descripcion }}</p>
+          <p class="meta">Hábitat: {{ especie.habitat.nombre }}</p>
+        </div>
+        <div class="botones">
+          <button type="button" class="secundario" (click)="editar(especie)">
+            Editar
+          </button>
+          <button type="button" class="secundario" (click)="borrar(especie)">
+            Borrar
+          </button>
+        </div>
+      </div>
+    } @empty {
+      <p class="vacio">No hay especies que coincidan.</p>
+    }
+  </div>
+</section>

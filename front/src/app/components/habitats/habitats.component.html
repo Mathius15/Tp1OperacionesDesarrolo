@@ -1,0 +1,60 @@
+<section class="card">
+  <h2>Hábitats</h2>
+
+  <form class="form" (ngSubmit)="guardar()">
+    <label>
+      Nombre
+      <input
+        type="text"
+        name="nombre"
+        [(ngModel)]="nombre"
+        required
+        minlength="3"
+        placeholder="Ej: Sierra del El Iguel"
+      />
+    </label>
+
+    <label>
+      Descripción
+      <input
+        type="text"
+        name="descripcion"
+        [(ngModel)]="descripcion"
+        placeholder="Opcional"
+      />
+    </label>
+
+    <div class="acciones">
+      <button type="submit">
+        {{ editandoId() === null ? 'Guardar' : 'Actualizar' }}
+      </button>
+      @if (editandoId() !== null) {
+        <button type="button" class="secundario" (click)="limpiarFormulario()">
+          Cancelar
+        </button>
+      }
+    </div>
+  </form>
+
+  <div class="lista">
+    @for (habitat of habitats(); track habitat.id) {
+      <div class="item">
+        <div>
+          <h3>{{ habitat.nombre }}</h3>
+          <p class="meta">{{ habitat.descripcion }}</p>
+          <p class="meta">{{ habitat.cantidadEspecies }} especie(s)</p>
+        </div>
+        <div class="botones">
+          <button type="button" class="secundario" (click)="editar(habitat)">
+            Editar
+          </button>
+          <button type="button" class="secundario" (click)="borrar(habitat)">
+            Borrar
+          </button>
+        </div>
+      </div>
+    } @empty {
+      <p class="vacio">Todavía no hay hábitats cargados.</p>
+    }
+  </div>
+</section>
