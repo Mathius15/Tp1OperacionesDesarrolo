@@ -6,7 +6,7 @@ búsqueda con filtros.
 - **Back:** NestJS + TypeScript + PostgreSQL (TypeORM) → carpeta `back/`
 - **Front:** Angular (componentes standalone + signals) → carpeta `front/`
 
---
+---
 
 ## Cómo lo corro
 
