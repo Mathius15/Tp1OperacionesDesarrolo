@@ -66,15 +66,6 @@ services:
     build:
       context: ./front
       args:
-        # OJO con esto: la app es una SPA, o sea que las peticiones a la API
-        # las hace el NAVEGADOR, no el contenedor del front. El navegador
-        # corre en tu maquina y no sabe resolver 'back' (ese nombre solo
-        # existe dentro de la red de docker). Por eso la URL tiene que
-        # ser alcanzable desde la maquina: localhost + el puerto publicado.
-        #
-        # La version "correcta" para produccion es que nginx haga de proxy
-        # inverso (location /api/ { proxy_pass http://back:3000/; }) y el
-        # front pegarle a '/api'. Ahi queda un solo puerto y un solo origen.
         API_URL: http://localhost:3000
 
     depends_on:
