@@ -27,6 +27,7 @@ services:
   # BACK (imagen nuestra)
   #
   back:
+  #image: mathius15/tandil-back:1.0 para usar la imagen que subi a dockerhub
     build:     #(El build es porque usamos una imagen que creamos nosotros, no una oficial)
       context: ./back
 
@@ -63,6 +64,7 @@ services:
   #  FRONT — Angular compilado, servido por nginx.
   # ============================================================
   front:
+  #image: mathius15/tandil-front:1.0 para usar la imagen que subi a dockerhub
     build:
       context: ./front
       args:
