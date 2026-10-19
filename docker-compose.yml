@@ -1,0 +1,82 @@
+services:
+  #
+  # DATA BASE (imagen oficial de postgres)
+  #
+  db:
+    image: postgres:16-alpine  
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tandildb
+
+    volumes:
+      - datos-db:/var/lib/postgresql/data
+    
+    # Healthcheck para que docker-compose espere a que la base esté lista antes de arrancar el back.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tandildb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    
+    #ports:   #Descomentar para debugear desde el navegador
+    #  - "5432:5432"
+  
+  #
+  # BACK (imagen nuestra)
+  #
+  back:
+  #image: mathius15/tandil-back:1.0 para usar la imagen que subi a dockerhub
+    build:     #(El build es porque usamos una imagen que creamos nosotros, no una oficial)
+      context: ./back
+
+    environment:    #sobreescriven lo que hay en back/.env
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: tandildb
+      DB_SYNC: "true"    #Crea las tablas al arrancar
+      PORT: "3000"
+
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/habitats"]
+      interval: 10s
+      timeout: 3s
+      start_period: 20s    # le da 20s de margen antes de empezar a contar fallos
+      retries: 3
+
+    depends_on:
+       db:
+        # NO alcanza con solo 'depends_on: [db]'. Eso arrancaría el back
+        # apenas el contenedor de la base *empieza*, no cuando está
+        # *lista*. Con service_healthy esperamos a que el healthcheck pase.
+         condition: service_healthy
+
+    ports:
+      # Descomentalo para poder debuggear con curl desde tu máquina.
+      # - "3000:3000"
+      - "127.0.0.1:3000:3000"
+
+
+  # ============================================================
+  #  FRONT — Angular compilado, servido por nginx.
+  # ============================================================
+  front:
+  #image: mathius15/tandil-front:1.0 para usar la imagen que subi a dockerhub
+    build:
+      context: ./front
+      args:
+        API_URL: http://localhost:3000
+
+    depends_on:
+      back:
+        condition: service_healthy
+
+    ports:
+      # Este sí se publica: es la página que abre el usuario.
+      # 8080 en tu máquina, 80 adentro del contenedor.
+      - "8080:80"
+volumes:
+  datos-db:

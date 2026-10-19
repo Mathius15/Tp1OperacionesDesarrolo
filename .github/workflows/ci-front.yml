@@ -1,0 +1,39 @@
+name: CI Front
+
+# Correr solo cuando cambian archivos de la carpeta front/.
+# Si no hay cambios en front/, este workflow ni se dispara.
+on:
+  push:
+    branches: ['**']
+    paths:
+      - 'front/**'
+  pull_request:
+    branches: ['**']
+    paths:
+      - 'front/**'
+
+jobs:
+  test-front:
+    name: Tests del frontend
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: front
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: front/package-lock.json
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Correr los tests
+        # ChromeHeadless = sin ventana (CI no tiene pantalla).
+        # --watch=false = no se queda esperando.
+        run: npm test -- --watch=false --browsers=ChromeHeadless
