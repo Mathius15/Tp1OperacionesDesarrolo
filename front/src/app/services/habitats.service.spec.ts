@@ -34,7 +34,7 @@ describe('HabitatsService', () => {
     const promesa = service.listar();
 
     // Interceptamos la peticion: le decimos que URL y que respondemos.
-    const req = httpMock.expectOne(`${API_URL}/habitats`);
+    const req = httpMock.expectOne(`${API_URL}/habitatsAA`);
     expect(req.request.method).toBe('GET');
     req.flush(habitats);
 
