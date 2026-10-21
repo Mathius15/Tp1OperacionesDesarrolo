@@ -5,7 +5,7 @@ import { IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 export class CreateHabitatDto {
   @IsString()
   @IsNotEmpty()
-  @MinLength(1, {
+  @MinLength(3, {
     message: 'El nombre es obligatorio y debe tener al menos 3 letras',
   })
   nombre: string;
